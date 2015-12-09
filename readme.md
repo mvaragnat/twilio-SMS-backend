@@ -18,14 +18,14 @@ It uses Twilio API and (optionnaly) Pushover for notifications
 
 ## Configuration
 
-1. Configure ./confid/twilio.js
+1)  Configure ./confid/twilio.js
 ```
 exports.account_id = "YOUR_TWILIO_ACCOUNT_ID";
 exports.secret = "YOUR_TWILIO_SECRET";
 // A number you bought from Twilio and can use for outbound communication
 exports.number = "YOUR_TWILIO_NUMBER";
 ```
-2. Go to your [Twilio account](https://www.twilio.com/user/account/messaging/phone-numbers) and configure Twilio SMS to /receive.
+2) Go to your [Twilio account](https://www.twilio.com/user/account/messaging/phone-numbers) and configure Twilio SMS to /receive.
 
 For example if the app was deployed to myapp.herokuapp.com, your Twilio number should point to myapp.herokuapp.com/receive
 
