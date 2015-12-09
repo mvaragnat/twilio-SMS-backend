@@ -72,7 +72,8 @@ You can be notified each time you receive a message. Actually, any number of peo
 2. Add Pushover tokens (app token, as well as a token for each user to notify)
 
 ./config/pushover.js
-```//API token
+```
+//API token
 exports.token = "YOUR_PUSHOVER_APP_TOKEN";
 
 //userkey
