@@ -4,6 +4,7 @@
 This app allows you to manage several SMS conversations in a chat-like interface. Useful for technical support, marketing, games, and so on.
 
 It is built on Node.js and Socket.io.
+
 It uses Twilio API and (optionnaly) Pushover for notifications
 
 ## Features
@@ -13,7 +14,7 @@ The chat interface is a Messenger-like interface with specific functions such as
 /set NAME to add a name to the active discussion (user profile)
 /sendall MESSAGE to send a message to all your discussions
 
-Sends notifications to inform you of incoming messages
+It can send notifications to inform you of incoming messages
 
 ## Configuration
 
@@ -80,10 +81,10 @@ var user2 = "PUSHOVER_USER_1_TOKEN";
 //etc
 
 exports.users = [user1, user2];
-``
+```
 
 ## Author
-[Matthieu Varagnat](https://twitter.com/MVaragnat)
+[Matthieu Varagnat](https://fr.linkedin.com/in/matthieuvaragnat)
 
 ## Licence
 Shared under [MIT licence](http://choosealicense.com/licenses/mit/)
