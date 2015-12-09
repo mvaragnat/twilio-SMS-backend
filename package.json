@@ -1,0 +1,27 @@
+{
+  "name": "dr-hitch",
+  "version": "0.1.0",
+  "description": "Conseils de seduction sur Happn, Adopte un Mec et Tinder",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.2.6",
+    "mongoose-findorcreate": "^0.1.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^3.1.0",
+    "pushover-notifications": "^0.2.2",
+    "socket.io": "^1.3.7",
+    "twilio": "^2.5.2"
+  }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <link href='/css/chatcss.css' rel='stylesheet'>
+
+    <title>Login</title>
+
+  </head>
+
+  <body>
+
+    <div class="container text-center">
+     <div class="spacer2"></div>
+
+      <form action="/login" method="post">
+        <div>
+          <label>Username:</label>
+          <input type="text" name="username"/><br/>
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" name="password"/>
+        </div>
+        <div class="spacer3"></div>
+        <div>
+          <input type="submit" value="Submit"/>
+        </div>
+      </form>
+
+    </div>
+  </body>
+</html>

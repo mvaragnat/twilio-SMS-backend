@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+  <head>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='/css/chatcss.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+
+    <title>Talkative chat</title>
+
+  </head>
+  <body>
+      <div class="page-wrap yscroll">
+
+          <div class="col-md-4 zonenumber">
+            <div class="text-center">
+              <table  class="table table-bordered">
+                   <h4 class="text-center textpink">Conversations</h4>
+                <tbody id="users">
+                </tbody>
+              </table>
+
+              <div class="spacer3"></div>
+
+              <h4 class="text-center textwhite">Commands</h4>
+              <p>/create TEL: New conversation with number TEL<p>
+              <p>/set name NAME: sets (or change) NAME as current user name<p>
+              <p>/sendall MESSAGE: send MESSAGE to all users<p>
+
+                <div class="spacer3"></div>
+
+              <form method="get" action="/logout">
+                <button type="submit" class="btn btn-warning btn-xs">Logout</button>
+              </form>
+
+              <div class="spacer3"></div>
+            </div>
+          </div>
+
+          <div class="col-md-8 zonemessage">
+            <h1 class="text-center textpink">Conversation with <span id="name"></span> (<span id="number"></span>)</h1>
+            <ul id="messages"></ul>
+
+            <div class="spacer2"></div>
+
+            <div class="text-center">
+              <form action="" id="message_form" class="">
+                <input id="new_message" autocomplete="off" class="form-control2"></input>
+                <button type="submit" class="btn btn-primary btn-xs">Send</button>
+              </form>
+            </div>
+
+             <div class="spacer2"></div>
+
+          </div>
+      </div>
+
+
+
+  </body>
+
+  <script>
+    //init---------------------------------------------------------------------
+    //open socket with server
+    var socket = io(window.location.hostname + ":" + window.location.port + '/chat');
+
+    //update functions --------------------------------------------------------
+    var updateUsers = function(userList){
+      $('#users').text("");
+      for(var i = 0; i < userList.length; i++){
+        var tel = userList[i].tel;
+        var name = userList[i].name;
+        var unread = userList[i].unread;
+
+        //adapt display
+        var userString = '';
+        if (name){
+          userString = name + ' (<span class="user_number">' + tel + '</span>)';
+        }
+        else {
+          userString = '<span class="user_number">' + tel + '</span>';
+        }
+
+        //adapt between read and unread
+        if (unread) {
+          console.log('Conversation with ' + tel + ' (unread)');
+          var newTel = $('<tr><td class="conversations unread pointeur">' + userString + '</td></tr>');
+        }
+        else {
+          console.log('Conversation with ' + tel + ' (read)');
+          var newTel = $('<tr><td class="conversations pointeur textwhite">' + userString + '</td></tr>');
+        }
+        newTel.click( function (){
+          //mark as read
+          $(this).removeClass("unread");
+          //update text
+          requestConversation($(this).find('span').text());
+          //tell server
+          socket.emit("mark as read", $(this).find('span').text());
+        });
+        $('#users').append(newTel);
+      }
+    };
+
+    //request messages from conversation
+    var requestConversation = function(tel){
+      console.log("request conversation with " + tel);
+
+      //reset current conversation
+      $("#number").text('');
+      $("#name").text('');
+      $('#messages').text('');
+
+      socket.emit('get conversation', tel);
+    };
+
+    //add/change username
+    var setName = function(name){
+      $("#name").text(name);
+      socket.emit("add name", name, $('#number').text());
+    }
+
+    var displayMessage = function(msg, received, date){
+      //adapt read/unread
+      if(received){
+        $('#messages').append($('<div class="messages received alert alert-received">').text(date + ': ' + msg));
+      }
+      else{
+        $('#messages').append($('<div class="messages tsend alert alert-send">').text(date + ': ' + msg));
+      }
+    }
+
+    var displayCommande = function(msg){
+      $('#messages').append($('<li><em>' + msg + '</em></li>'));
+    }
+
+    var readCommand = function(input){
+      if(input.match('^/')){
+        console.log('It\'s a command');
+        var commande = input.substr(1);
+
+        if (commande.match('^set name ')){
+          var name = commande.substr(9);
+          setName(name);
+          displayCommande('Name set to ' + name);
+        }
+        else if (commande.match('^create ')){
+          var new_number = commande.substr(7);
+          socket.emit('new conversation', new_number);
+        }
+        else if (commande.match('^send all ')){
+          var body = commande.substr(9);
+          console.log("send all " + body)
+          var userTels = $('#users').find(".user_number");
+
+          userTels.each(function(i){
+            var tel = $(this).text();
+            displayCommande("Sending " + body + " to " + tel);
+            socket.emit('message', {message: body, number: tel});
+          })
+        }
+        else{
+          displayCommande('I did not understand that command')
+        }
+        return true;
+      }
+      return false;
+    }
+
+    //setup -------------------------------------------------------------------
+    //request update of users (conversations)
+    socket.emit('get users');
+
+    //fill current conversation if any
+    if($('#number').text()){
+      requestConversation($('#number').text());
+    }
+
+    //communication with server through socket---------------------------------
+
+    //send/receive message in current conversation-----------------------------
+    //send
+    $('#message_form').submit(function(){
+      var inputString = $('#new_message').val();
+
+      if(readCommand(inputString)){
+        //first check if it's a command
+      }
+      else{
+        //send message
+        socket.emit('message', {message: inputString, number: $('#number').text()});
+      }
+      $('#new_message').val('');
+      return false;
+    });
+
+
+    //receive
+    socket.on('message', function(msg, tel, received, date){
+      console.log("message " + msg + " conversation " + tel);
+
+      //check if it is in current conversation. If yes, display it
+      if ( tel == $('#number').text() ){
+        displayMessage(msg, received, date)
+      }
+      else{
+        console.log("Message received but not in this conversation")
+      }
+    });
+
+    //create new conversation--------------------------------------------------
+    //send
+    //via command line
+
+    //receive
+    socket.on('new conversation', function(userList, number){
+      //switch conversation
+      $('#messages').text('');
+      displayCommande('New conversation created');
+      $("#number").text(number);
+      $("#name").text('');
+
+      //update left column
+      socket.emit('get users');
+    });
+
+    //receive list of users (conversations)------------------------------------
+    socket.on('get users', function(userList){
+      updateUsers(userList);
+    });
+
+    //receive conversation : messages and user detail--------------------------
+    socket.on('get conversation', function(messageList, user){
+      //update conversation
+      $('#messages').text("");
+      for(var i = 0; i < messageList.length; i++){
+        var body = messageList[i].body;
+        var received = messageList[i].received;
+        var date = new Date(messageList[i].createdAt);
+        var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + ' à ' + date.getHours() + ':' + date.getMinutes();
+        console.log(body + '(received: ' + received + ') le ' + formattedDate);
+
+        displayMessage(body, received, formattedDate);
+      }
+
+      //update user
+      $("#number").text(user.tel);
+      $("#name").text(user.name);
+    });
+  </script>
+</html>
