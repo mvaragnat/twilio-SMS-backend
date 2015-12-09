@@ -9,12 +9,12 @@ It uses Twilio API and (optionnaly) Pushover for notifications
 
 ## Features
 
-The chat interface is a Messenger-like interface with specific functions such as
-/create TEL to start a new discussion
-/set NAME to add a name to the active discussion (user profile)
-/sendall MESSAGE to send a message to all your discussions
+* The chat interface is a Messenger-like interface with specific functions such as
+    * /create TEL to start a new discussion
+    * /set NAME to add a name to the active discussion (user profile)
+    * /sendall MESSAGE to send a message to all your discussions
 
-It can send notifications to inform you of incoming messages
+* It can send notifications to inform you of incoming messages
 
 ## Configuration
 
