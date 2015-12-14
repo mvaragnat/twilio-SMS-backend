@@ -85,7 +85,7 @@ exports.users = [user1, user2];
 ```
 
 ## Author
-[Matthieu Varagnat](https://fr.linkedin.com/in/matthieuvaragnat)
+[Matthieu Varagnat](https://twitter.com/MVaragnat)
 
 ## Licence
 Shared under [MIT licence](http://choosealicense.com/licenses/mit/)
