@@ -43,7 +43,7 @@ New accounts can be opened by un-commenting the /register route in ./routes/pass
 ## Notifications - Optional
 You can be notified each time you receive a message. Actually, any number of people can be notified.
 
-1. Un-comment in route.js
+1) Un-comment in route.js
 ```
 //send pushover notification
     // var pushover = new Pushover({
@@ -69,7 +69,7 @@ You can be notified each time you receive a message. Actually, any number of peo
     // }
 ```
 
-2. Add Pushover tokens (app token, as well as a token for each user to notify)
+2) Add Pushover tokens (app token, as well as a token for each user to notify)
 
 ./config/pushover.js
 ```

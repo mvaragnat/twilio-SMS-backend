@@ -68,8 +68,8 @@ cursor: pointer;
   border-width: 2px;
 }
 
-.received { 
-  text-align: left; 
+.received {
+  text-align: left;
 }
 
 
@@ -79,8 +79,8 @@ background-color: #ffffff;
 border-color: #e83f6f;
 }
 
-.tsend { 
-  text-align: right;   
+.tsend {
+  text-align: right;
 }
 
 .alert-send {
@@ -89,13 +89,11 @@ background-color: #71A9F7;
 border-color: #e83f6f;
 }
 
-.unread { 
+.unread {
   color: #FFFFFF;
-  font-weight: bold; 
+  font-weight: bold;
   background-color: #f39fb7
 }
-
-
 
 /* Spacer */
 
@@ -113,7 +111,7 @@ border-color: #e83f6f;
 /* Spacer */
 
 .textwhite {
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .textpink {
@@ -123,48 +121,3 @@ color: #E83F6F;
 .textorange {
 color: #FFBF00;
 }
-
-/* Matthieu Cochon 
-
-#message_form { 
-  background: #000; 
-  padding: 3px; 
-  position: absolute; 
-  bottom: 0;
-        /*position: fixed;
-        bottom: 0;
-  width: 100%; 
-}
-
-#message_form input { 
-  border: 0; 
-  padding: 10px; 
-  width: 89%; 
-  margin-right: .5%; 
-}
-
-#message_form button { 
-  width: 9%; 
-  background: rgb(130, 224, 255); 
-  border: none; 
-  padding: 10px; 
-}
-
-
-
-
-
-#messages { list-style-type: none; margin: 0; padding: 0; }
-
-#messages li { padding: 5px 10px; }
-
-#number { font-size: 1em;
-                margin-top: 0.67em;
-                margin-bottom: 0.67em;
-                margin-left: 0;
-                margin-right: 0;
-                font-weight: bold;
-}
-
-#m { font-size: 1.3em; }
-*/
